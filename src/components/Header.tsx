@@ -3,7 +3,15 @@ import { Box, Text } from '@chakra-ui/react';
 const Header = () => {
   return (
     <>
-      <Box bg="#fcf6f5" w="60vw" h="8vh" alignItems="center" display="flex">
+      <Box
+        bg="#fcf6f5"
+        w="60vw"
+        h="8vh"
+        alignItems="center"
+        display="flex"
+        borderRadius="10px"
+        p="5"
+      >
         <Text
           bgGradient="linear(to-l, #7928CA,#FF0080)"
           bgClip="text"
