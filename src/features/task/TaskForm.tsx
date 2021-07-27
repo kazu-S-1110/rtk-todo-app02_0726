@@ -1,5 +1,7 @@
 import { Flex, Input, Text } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { createTask } from './taskSlice';
 
 type InputTypes = {
   taskTitle: string;
@@ -7,8 +9,10 @@ type InputTypes = {
 
 const TaskForm = () => {
   const { register, handleSubmit, reset } = useForm();
-  const createTask = (data: InputTypes) => {
+  const dispatch = useDispatch();
+  const addTask = (data: InputTypes) => {
     console.log(data);
+    dispatch(createTask(data.taskTitle));
     reset();
   };
 
@@ -23,7 +27,7 @@ const TaskForm = () => {
       >
         New Todo
       </Text>
-      <form onSubmit={handleSubmit(createTask)}>
+      <form onSubmit={handleSubmit(addTask)}>
         <Input variant="filled" w="40vw" {...register('taskTitle')} />
       </form>
     </Flex>
