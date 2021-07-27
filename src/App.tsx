@@ -1,6 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import Header from './components/Header';
 import TaskForm from './features/task/TaskForm';
+import TaskList from './features/task/TaskList';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         >
           <Header />
           <TaskForm />
+          <TaskList />
         </Flex>
       </Flex>
     </>

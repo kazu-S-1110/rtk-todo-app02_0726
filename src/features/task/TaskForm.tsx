@@ -9,6 +9,7 @@ const TaskForm = () => {
   const { register, handleSubmit, reset } = useForm();
   const createTask = (data: InputTypes) => {
     console.log(data);
+    reset();
   };
 
   return (
