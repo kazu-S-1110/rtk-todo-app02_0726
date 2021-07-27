@@ -28,7 +28,11 @@ const TaskForm = () => {
         New Todo
       </Text>
       <form onSubmit={handleSubmit(addTask)}>
-        <Input variant="filled" w="40vw" {...register('taskTitle')} />
+        <Input
+          variant="filled"
+          w="40vw"
+          {...register('taskTitle', { required: true })}
+        />
       </form>
     </Flex>
   );
