@@ -49,15 +49,20 @@ export const taskSlice = createSlice({
       };
       state.tasks = [newTask, ...state.tasks];
     },
+    modalSwitch: (state, action) => {
+      state.isModalOpen = action.payload;
+    },
   },
 });
 
-export const { createTask } = taskSlice.actions;
+export const { createTask, modalSwitch } = taskSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const tasks = (state: RootState): taskState['tasks'] => state.task.tasks;
+export const isModalOpen = (state: RootState): taskState['isModalOpen'] =>
+  state.task.isModalOpen;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

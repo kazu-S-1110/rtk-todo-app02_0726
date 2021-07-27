@@ -1,6 +1,9 @@
 import { Flex, HStack, Text, Spacer, Button, Checkbox } from '@chakra-ui/react';
 import { VFC } from 'react';
 import { CalendarIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { modalSwitch, isModalOpen } from './taskSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import ModalUi from '../../components/ModalUi';
 
 interface PropsTypes {
   task: {
@@ -14,26 +17,32 @@ const TaskItem: VFC<PropsTypes> = ({ task }) => {
   const handleCheck = () => {
     console.log(task.id);
   };
+  const isModal = useSelector(isModalOpen);
+  const dispatch = useDispatch();
 
   return (
-    <Flex w="full" bg="#C3E0FD" mb="2" borderRadius="4">
-      <HStack>
-        <CalendarIcon />
-        <Text fontSize="xl">{task.title}</Text>
-      </HStack>
-      <Spacer />
-      <HStack>
-        <Button variant="ghost">
-          <Checkbox isChecked={task.completed} onChange={handleCheck} />
-        </Button>
-        <Button variant="ghost">
-          <EditIcon />
-        </Button>
-        <Button variant="ghost">
-          <DeleteIcon />
-        </Button>
-      </HStack>
-    </Flex>
+    <>
+      <Flex w="full" bg="#C3E0FD" mb="2" borderRadius="4">
+        <HStack>
+          <CalendarIcon />
+          <Text fontSize="xl">{task.title}</Text>
+        </HStack>
+        <Spacer />
+        <HStack>
+          <Button variant="ghost">
+            <Checkbox isChecked={task.completed} onChange={handleCheck} />
+          </Button>
+          <Button variant="ghost" onClick={() => dispatch(modalSwitch(true))}>
+            <EditIcon />
+          </Button>
+          <Button variant="ghost">
+            <DeleteIcon />
+          </Button>
+        </HStack>
+      </Flex>
+
+      <ModalUi />
+    </>
   );
 };
 
