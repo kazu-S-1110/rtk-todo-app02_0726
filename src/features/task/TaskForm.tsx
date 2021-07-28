@@ -16,7 +16,6 @@ const TaskForm: VFC<PropsTypes> = ({ edit }) => {
   const dispatch = useDispatch();
   const selectedTask = useSelector(selectTask);
   const addTask = (data: InputTypes) => {
-    console.log(data);
     dispatch(createTask(data.taskTitle));
     reset();
   };

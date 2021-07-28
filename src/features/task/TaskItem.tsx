@@ -1,7 +1,7 @@
 import { Flex, HStack, Text, Spacer, Button, Checkbox } from '@chakra-ui/react';
 import { VFC } from 'react';
 import { CalendarIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
-import { modalSwitch, mountTask, completeTask } from './taskSlice';
+import { modalSwitch, mountTask, completeTask, deleteTask } from './taskSlice';
 import { useDispatch } from 'react-redux';
 import ModalUi from '../../components/ModalUi';
 
@@ -39,7 +39,7 @@ const TaskItem: VFC<PropsTypes> = ({ task }) => {
           <Button variant="ghost" onClick={handleEdit}>
             <EditIcon />
           </Button>
-          <Button variant="ghost">
+          <Button variant="ghost" onClick={() => dispatch(deleteTask(task))}>
             <DeleteIcon />
           </Button>
         </HStack>

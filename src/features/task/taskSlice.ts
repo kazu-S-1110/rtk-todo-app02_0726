@@ -67,11 +67,21 @@ export const taskSlice = createSlice({
         task.completed = !task.completed;
       }
     },
+    deleteTask: (state, action) => {
+      const newTasks = state.tasks.filter((t) => t.id !== action.payload.id);
+      state.tasks = [...newTasks];
+    },
   },
 });
 
-export const { createTask, modalSwitch, mountTask, editTask, completeTask } =
-  taskSlice.actions;
+export const {
+  createTask,
+  modalSwitch,
+  mountTask,
+  editTask,
+  completeTask,
+  deleteTask,
+} = taskSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
