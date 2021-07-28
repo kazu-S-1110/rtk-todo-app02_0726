@@ -52,10 +52,20 @@ export const taskSlice = createSlice({
     modalSwitch: (state, action) => {
       state.isModalOpen = action.payload;
     },
+    mountTask: (state, action) => {
+      state.selectTask = action.payload;
+    },
+    editTask: (state, action) => {
+      const task = state.tasks.find((t) => t.id === action.payload.id);
+      if (task) {
+        task.title = action.payload.title;
+      }
+    },
   },
 });
 
-export const { createTask, modalSwitch } = taskSlice.actions;
+export const { createTask, modalSwitch, mountTask, editTask } =
+  taskSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -63,6 +73,8 @@ export const { createTask, modalSwitch } = taskSlice.actions;
 export const tasks = (state: RootState): taskState['tasks'] => state.task.tasks;
 export const isModalOpen = (state: RootState): taskState['isModalOpen'] =>
   state.task.isModalOpen;
+export const selectTask = (state: RootState): taskState['selectTask'] =>
+  state.task.selectTask;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

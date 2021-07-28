@@ -1,19 +1,29 @@
 import { Flex, Input, Text } from '@chakra-ui/react';
+import { VFC } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { createTask } from './taskSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { createTask, selectTask, editTask, modalSwitch } from './taskSlice';
 
 type InputTypes = {
   taskTitle: string;
 };
+type PropsTypes = {
+  edit?: boolean;
+};
 
-const TaskForm = () => {
+const TaskForm: VFC<PropsTypes> = ({ edit }) => {
   const { register, handleSubmit, reset } = useForm();
   const dispatch = useDispatch();
+  const selectedTask = useSelector(selectTask);
   const addTask = (data: InputTypes) => {
     console.log(data);
     dispatch(createTask(data.taskTitle));
     reset();
+  };
+  const editedTask = (data: InputTypes) => {
+    const sendTask = { ...selectedTask, title: data.taskTitle };
+    dispatch(editTask(sendTask));
+    dispatch(modalSwitch(false));
   };
 
   return (
@@ -25,15 +35,26 @@ const TaskForm = () => {
         fontWeight="extrabold"
         mr="7"
       >
-        New Todo
+        {edit ? 'Edit task' : 'New Task'}
       </Text>
-      <form onSubmit={handleSubmit(addTask)}>
-        <Input
-          variant="filled"
-          w="40vw"
-          {...register('taskTitle', { required: true })}
-        />
-      </form>
+      {edit ? (
+        <form onSubmit={handleSubmit(editedTask)}>
+          <Input
+            variant="filled"
+            w="40vw"
+            defaultValue={selectedTask.title}
+            {...register('taskTitle', { required: true })}
+          />
+        </form>
+      ) : (
+        <form onSubmit={handleSubmit(addTask)}>
+          <Input
+            variant="filled"
+            w="40vw"
+            {...register('taskTitle', { required: true })}
+          />
+        </form>
+      )}
     </Flex>
   );
 };
