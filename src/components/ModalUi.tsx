@@ -2,7 +2,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalFooter,
   ModalCloseButton,
   Button,
@@ -28,9 +27,6 @@ const ModalUi = () => {
           <ModalCloseButton />
           <TaskForm edit />
           <ModalFooter>
-            <Button type="submit" colorScheme="blue" mr={3}>
-              Save
-            </Button>
             <Button onClick={() => dispatch(modalSwitch(false))}>Cancel</Button>
           </ModalFooter>
         </ModalContent>

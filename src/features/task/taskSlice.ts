@@ -61,10 +61,16 @@ export const taskSlice = createSlice({
         task.title = action.payload.title;
       }
     },
+    completeTask: (state, action) => {
+      const task = state.tasks.find((t) => t.id === action.payload.id);
+      if (task) {
+        task.completed = !task.completed;
+      }
+    },
   },
 });
 
-export const { createTask, modalSwitch, mountTask, editTask } =
+export const { createTask, modalSwitch, mountTask, editTask, completeTask } =
   taskSlice.actions;
 
 // The function below is called a selector and allows us to select a value from

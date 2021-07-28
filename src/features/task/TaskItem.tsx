@@ -1,8 +1,8 @@
 import { Flex, HStack, Text, Spacer, Button, Checkbox } from '@chakra-ui/react';
 import { VFC } from 'react';
 import { CalendarIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
-import { modalSwitch, isModalOpen, mountTask } from './taskSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { modalSwitch, mountTask, completeTask } from './taskSlice';
+import { useDispatch } from 'react-redux';
 import ModalUi from '../../components/ModalUi';
 
 interface PropsTypes {
@@ -15,7 +15,7 @@ interface PropsTypes {
 
 const TaskItem: VFC<PropsTypes> = ({ task }) => {
   const handleCheck = () => {
-    console.log(task.id);
+    dispatch(completeTask(task));
   };
   const handleEdit = () => {
     dispatch(modalSwitch(true));
