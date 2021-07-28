@@ -1,9 +1,20 @@
-import { Flex, HStack, Text, Spacer, Button, Checkbox } from '@chakra-ui/react';
+import {
+  Flex,
+  HStack,
+  Text,
+  Spacer,
+  Button,
+  Checkbox,
+  PopoverTrigger,
+  Popover,
+} from '@chakra-ui/react';
+
 import { VFC } from 'react';
 import { CalendarIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
-import { modalSwitch, mountTask, completeTask, deleteTask } from './taskSlice';
+import { modalSwitch, mountTask, completeTask } from './taskSlice';
 import { useDispatch } from 'react-redux';
 import ModalUi from '../../components/ModalUi';
+import DeletePopOver from '../../components/DeletePopOver';
 
 interface PropsTypes {
   task: {
@@ -39,9 +50,15 @@ const TaskItem: VFC<PropsTypes> = ({ task }) => {
           <Button variant="ghost" onClick={handleEdit}>
             <EditIcon />
           </Button>
-          <Button variant="ghost" onClick={() => dispatch(deleteTask(task))}>
-            <DeleteIcon />
-          </Button>
+
+          <Popover>
+            <PopoverTrigger>
+              <Button variant="ghost">
+                <DeleteIcon />
+              </Button>
+            </PopoverTrigger>
+            <DeletePopOver task={task} />
+          </Popover>
         </HStack>
       </Flex>
 
