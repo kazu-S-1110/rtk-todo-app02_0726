@@ -10,15 +10,8 @@ const TaskList: VFC = () => {
   const filteredSwitch = useSelector(filterSwitch);
   const dispatch = useDispatch();
   return (
-    <Flex
-      h="60vh"
-      mt="5"
-      borderRadius="10"
-      p="5"
-      direction="column"
-      overflowY="scroll"
-    >
-      <HStack spacing="3">
+    <>
+      <HStack spacing="3" m="5">
         <Button
           w="7vw"
           colorScheme="teal"
@@ -41,11 +34,27 @@ const TaskList: VFC = () => {
           全て表示
         </Button>
       </HStack>
-
-      {taskList.map((task) => (
-        <TaskItem task={task} key={task.id} />
-      ))}
-    </Flex>
+      <Flex
+        h="60vh"
+        borderRadius="10"
+        p="5"
+        direction="column"
+        overflowY="scroll"
+      >
+        {filteredSwitch === 'no-fin' &&
+          taskList.map(
+            (task) =>
+              task.completed === false && <TaskItem task={task} key={task.id} />
+          )}
+        {filteredSwitch === 'fin' &&
+          taskList.map(
+            (task) =>
+              task.completed === true && <TaskItem task={task} key={task.id} />
+          )}
+        {filteredSwitch === 'all' &&
+          taskList.map((task) => <TaskItem task={task} key={task.id} />)}
+      </Flex>
+    </>
   );
 };
 
