@@ -1,12 +1,14 @@
 // import sampleData from './sample.json';
-import { tasks } from './taskSlice';
-import { Flex } from '@chakra-ui/react';
+import { tasks, filterSwitch, filterChange } from './taskSlice';
+import { Button, Flex, HStack } from '@chakra-ui/react';
 import TaskItem from './TaskItem';
 import { VFC } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const TaskList: VFC = () => {
   const taskList = useSelector(tasks);
+  const filteredSwitch = useSelector(filterSwitch);
+  const dispatch = useDispatch();
   return (
     <Flex
       h="60vh"
@@ -16,6 +18,30 @@ const TaskList: VFC = () => {
       direction="column"
       overflowY="scroll"
     >
+      <HStack spacing="3">
+        <Button
+          w="7vw"
+          colorScheme="teal"
+          onClick={() => dispatch(filterChange('no-fin'))}
+        >
+          未完了のみ
+        </Button>
+        <Button
+          w="7vw"
+          colorScheme="teal"
+          onClick={() => dispatch(filterChange('fin'))}
+        >
+          完了のみ
+        </Button>
+        <Button
+          w="7vw"
+          colorScheme="teal"
+          onClick={() => dispatch(filterChange('all'))}
+        >
+          全て表示
+        </Button>
+      </HStack>
+
       {taskList.map((task) => (
         <TaskItem task={task} key={task.id} />
       ))}

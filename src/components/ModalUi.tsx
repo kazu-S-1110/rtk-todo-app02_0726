@@ -17,7 +17,7 @@ const ModalUi = () => {
   return (
     <>
       <Modal
-        closeOnOverlayClick={false}
+        // closeOnOverlayClick={false}
         isOpen={isModal}
         onClose={() => dispatch(modalSwitch(false))}
         size="4xl"

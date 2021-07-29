@@ -71,6 +71,9 @@ export const taskSlice = createSlice({
       const newTasks = state.tasks.filter((t) => t.id !== action.payload.id);
       state.tasks = [...newTasks];
     },
+    filterChange: (state, action) => {
+      state.filterSwitch = action.payload;
+    },
   },
 });
 
@@ -81,6 +84,7 @@ export const {
   editTask,
   completeTask,
   deleteTask,
+  filterChange,
 } = taskSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
@@ -91,6 +95,8 @@ export const isModalOpen = (state: RootState): taskState['isModalOpen'] =>
   state.task.isModalOpen;
 export const selectTask = (state: RootState): taskState['selectTask'] =>
   state.task.selectTask;
+export const filterSwitch = (state: RootState): taskState['filterSwitch'] =>
+  state.task.filterSwitch;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
